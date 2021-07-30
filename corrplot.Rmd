@@ -83,7 +83,6 @@ corrplot(corr, tl.col = 'black', order = 'hclust')
 
 corr1 <- cor.mtest(dat)
 corr1$p
-
 corrplot(corr, tl.col = 'black', order = 'hclust', p.mat = corr1$p, insig = 'blank')
 
 corrplot(corr, tl.col = 'black', order = 'hclust', p.mat = corr1$p, 
@@ -99,4 +98,9 @@ corrplot(corr, tl.col = 'black', order = 'hclust', p.mat = corr1$p,
          pch.col = 'green', type = 'lower', method = 'color')
 ```
 
-.
+```{r}
+
+```
+
+z
+
