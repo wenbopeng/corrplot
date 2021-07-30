@@ -1,0 +1,102 @@
+---
+title: "生成网页版"
+author: "作者：**彭文波**"
+date: "编译时间：`r Sys.time()`"
+output:
+  html_document: default
+  rticles::ctex:
+  pdf_document: default
+---
+
+
+\newpage
+
+
+```{r include=FALSE}
+knitr::opts_chunk$set(comment = '',
+                      # prompt = TRUE, #代码前面增加>号
+                      # collapse = TRUE, #把代码块内的计算结果放在一起
+                      message = FALSE,
+                      warning = FALSE)
+```
+
+```{r,message = FALSE, include=FALSE}
+library(EconGeo) # Computing Key Indicators of the Spatial Distribution of Economic Activities
+library(tidyverse) # Easily Install and Load the 'Tidyverse'
+library(export) # Streamlined Export of Graphs and Data Tables
+library(corrplot) # Visualization of a Correlation Matrix # Visualization of a Correlation Matrix
+# library(tidytext) # Text Mining using 'dplyr', 'ggplot2', and Other Tidy Tools
+# library(tidyquant) # Tidy Quantitative Financial Analysis
+# library(knitr) # A General-Purpose Package for Dynamic Report Generation in R
+# library(data.table) # Extension of `data.frame`
+# library(RColorBrewer) # ColorBrewer Palettes
+# library(reshape2) # Flexibly Reshape Data: A Reboot of the Reshape Package
+# library(ggrepel) # Automatically Position Non-Overlapping Text Labels with 'ggplot2'
+# library(bruceR) # Broadly Useful Convenient and Efficient R Functions
+# library(stargazer) # Well-Formatted Regression and Summary Statistics Tables
+# library(foreign) # Read Data Stored by 'Minitab', 'S', 'SAS', 'SPSS', 'Stata','Systat', 'Weka', 'dBase', ...
+# library(plm) # Linear Models for Panel Data
+# library(AER) # Applied Econometrics with R
+# library(igraph) # Network Analysis and Visualization
+# library(networkD3) # D3 JavaScript Network Graphs from R
+# library(texreg) # Conversion of R Regression Output to LaTeX or HTML Tables
+# library(statnet)        # CRAN v2019.6
+# library(ggstatsplot)#躺着就能出图
+# library(linkprediction) # CRAN v1.0-0
+# rm(list = ls())
+```
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+视频地址：[这么华丽的相关性热图居然这么容易画！零基础R语言之相关性分析 晴学R9_哔哩哔哩_bilibili](https://www.bilibili.com/video/BV1mK4y1N7g9/?spm_id_from=autoNext)
+
+数据和代码[GitHub - linhesun/bilibiliRlearning: Use it with the bilibili vedios.](https://github.com/linhesun/bilibiliRlearning)
+
+```{r}
+# install.packages('corrplot')
+# library('corrplot') # Visualization of a Correlation Matrix # Visualization of a Correlation Matrix
+
+```
+
+```{r}
+dat <- read.table('cordat.txt', header = T, sep = '\t')
+dat <- as.matrix(dat)
+
+corr <- cor(dat)
+# corr2 <- co.occurrence(t(dat)) %>%  relatedness(.,method = "cosine")
+## 此处不能二模网络的节点相似性来计算，因为这是求解变量之间的相关性。前者只可能是正直，这里可能是负值。
+corrplot(corr)
+corrplot(corr, tl.col = 'black')
+corrplot(corr, tl.col = 'black', order = 'hclust')
+
+corr1 <- cor.mtest(dat)
+corr1$p
+
+corrplot(corr, tl.col = 'black', order = 'hclust', p.mat = corr1$p, insig = 'blank')
+
+corrplot(corr, tl.col = 'black', order = 'hclust', p.mat = corr1$p, 
+         insig = 'label_sig', sig.level = c(0.001,0.01,0.05), pch.cex = 0.9,
+         pch.col = 'green')
+
+corrplot(corr, tl.col = 'black', order = 'hclust', p.mat = corr1$p, 
+         insig = 'label_sig', sig.level = c(0.001,0.01,0.05), pch.cex = 0.9,
+         pch.col = 'green', type = 'lower')
+
+corrplot(corr, tl.col = 'black', order = 'hclust', p.mat = corr1$p, 
+         insig = 'label_sig', sig.level = c(0.001,0.01,0.05), pch.cex = 0.9,
+         pch.col = 'green', type = 'lower', method = 'color')
+```
+
+
